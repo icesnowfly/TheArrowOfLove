@@ -137,11 +137,20 @@
         <script type="text/javascript" src="src/MyGame/Objects/ArrowSet.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Arrow.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Cupid.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Crosshair.js"></script>
+        <script type="text/javascript" src="src/MyGame/Objects/Bow.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Platform.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/PlatformSet.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/World.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Role.js"></script>
         <script type="text/javascript" src="src/MyGame/Objects/Trap.js"></script>
+
+        <script type="text/javascript" src="src/MyGame/UI/Help.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/Level.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/LosePage.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/Menu.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/WinPage.js"></script>
+        <script type="text/javascript" src="src/MyGame/UI/EnergyBar.js"></script>
         
         
            
@@ -150,7 +159,7 @@
     </head>
 
     <body onload="
-        var myGame = new MyGame();
+        var myGame = new Menu();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
         <div id="LoadingIconParent" style="width: 800px; height:600px;">

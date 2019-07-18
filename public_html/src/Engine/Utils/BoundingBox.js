@@ -32,6 +32,8 @@ BoundingBox.eboundCollideStatus = Object.freeze({
     eCollideRight: 2,
     eCollideTop: 4,
     eCollideBottom: 8,
+    eCollideOnTop:32,
+    eCollideOnBottom:64,
     eInside : 16,
     eOutside: 0
 });
@@ -74,6 +76,29 @@ BoundingBox.prototype.intersectsBound = function (otherBound) {
             (this.minY() < otherBound.maxY()) &&
             (this.maxY() > otherBound.minY()));
 };
+
+BoundingBox.prototype.enterCollideStatus = function (otherBound){
+    var status = 0;
+    // status:
+    // 1: onTop
+    // 2: onBottom
+    // 3: onLeft
+    // 4: onRight
+
+    if (this.intersectsBound(otherBound)) {
+        if (this.minY()<otherBound.maxY() && this.maxY()>otherBound.maxY())
+            status = 1;
+        if (this.maxY()>otherBound.minY() && this.minY()<otherBound.minY())
+            status = 2;
+        if (this.maxX()>otherBound.minX() && this.minX()<otherBound.minX()
+        && this.maxX()-otherBound.minX() < 1.5)
+            status = 3;
+        if (this.minX()<otherBound.maxX() && this.maxX()>otherBound.maxX()
+        && this.minX()-otherBound.maxX() > -1.5)
+            status = 4;
+    }
+    return status;
+}
 
 /**
  * Return the collision status of parameter BoundingBox

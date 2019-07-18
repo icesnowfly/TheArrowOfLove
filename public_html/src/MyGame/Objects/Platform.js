@@ -20,7 +20,7 @@ function Platform(spriteTexture,x,y,w,h,move=false,min=0,max=0,moveSpeed) {
     this.setRigidBody(r);
     r.setRestitution(0);
    // this.toggleDrawRenderable();
-   this.toggleDrawRigidShape();
+   //this.toggleDrawRigidShape();
 }
 gEngine.Core.inheritPrototype(Platform,GameObject);
 

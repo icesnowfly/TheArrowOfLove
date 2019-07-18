@@ -10,7 +10,7 @@ function Role(spriteTexture, x, y){
     this.mRole.getXform().setPosition(x, y);
     this.mRole.getXform().setSize(10, 16);
     this.mRole.setColor([1,1,1,0]);
-    this.mRole.setElementPixelPositions(0, 256, 0, 412);
+    this.mRole.setElementPixelPositions(0, 256, 0, 430);
     GameObject.call(this, this.mRole);
 
     this.mIsHit = false;
@@ -19,7 +19,7 @@ function Role(spriteTexture, x, y){
     this.setRigidBody(r);
     this.getRigidBody().setRestitution(0);
     this.getRigidBody().setFriction(1);
-    this.toggleDrawRigidShape();
+    //this.toggleDrawRigidShape();
 }
 gEngine.Core.inheritPrototype(Role, GameObject);
 
@@ -39,7 +39,7 @@ Role.prototype.update = function(ArrowSet){
     {
         this.mTimer += 1;
     }
-    if (this.mTimer > 300)
+    if (this.mTimer > 180)
     {
         this.mIsHit = false;
         this.mTimer = 0;

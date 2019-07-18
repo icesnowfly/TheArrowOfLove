@@ -4,19 +4,15 @@
  * and open the template in the editor.
  */
 
-function Arrow(spriteTexture, Cupid, toX, toY, speed) {
+function Arrow(spriteTexture, Cupid, cosT, sinT, speed) {
     var w = 3;
     var h = 15;
-    var cxform = Cupid.getXform();
-    var vx = toX-cxform.getXPos();
-    var vy = toY-cxform.getYPos();
-    if (vx>0) //get the flying direction
-        this.mDirection = 1;
-    else this.mDirection = -1;
+
+    var bowXform = Cupid.mBow.getXform();
 
     this.mArrow = new SpriteRenderable(spriteTexture);
     this.mArrow.setColor([1, 1, 1, 0]);
-    this.mArrow.getXform().setPosition(cxform.getXPos()+8*this.mDirection, cxform.getYPos());
+    this.mArrow.getXform().setPosition(bowXform.getXPos(), bowXform.getYPos());
     this.mArrow.getXform().setSize(w, h);
     this.mArrow.setElementPixelPositions(278,328,0,268);
     
@@ -29,19 +25,16 @@ function Arrow(spriteTexture, Cupid, toX, toY, speed) {
     
     var r;
     r = new RigidRectangle(this.getXform(), w, h);
-    var size = Math.sqrt(vx*vx +vy*vy);
-    vx = vx/size;
-    vy = vy/size;
-    this.mSpeedX = vx * speed;
-    this.mSpeedY = vy * speed;
+    this.mSpeedX = cosT * speed;
+    this.mSpeedY = sinT * speed;
     r.setVelocity(this.mSpeedX, this.mSpeedY);
-    var radina = Math.atan(r.mVelocity[1] / r.mVelocity[0]);
-    r.mXform.setRotationInRad(radina - Math.PI / 2 * this.mDirection);
+
+    r.mXform.setRotationInRad(bowXform.getRotationInRad());
     r.setMass(1);
     r.setRestitution(0);
     this.setRigidBody(r);
   //  this.toggleDrawRenderable();
-    this.toggleDrawRigidShape();
+  //  this.toggleDrawRigidShape();
 }
 gEngine.Core.inheritPrototype(Arrow, GameObject);
 
@@ -51,8 +44,8 @@ Arrow.prototype.update = function (World) {
     var PlatformSet = World.mPlatformSet;
 
     var r = this.getRigidBody();
-    var radina = Math.atan(r.mVelocity[1] / r.mVelocity[0]);
-    this.getRigidBody().mXform.setRotationInRad(radina - Math.PI / 2 * this.mDirection);
+    var radian = Math.atan2(r.mVelocity[1] , r.mVelocity[0]);
+    this.getRigidBody().mXform.setRotationInRad(radian - Math.PI / 2);
     GameObject.prototype.update.call(this);
 
     //Deal with the collision
@@ -68,7 +61,7 @@ Arrow.prototype.update = function (World) {
         }
     }
 
-    if (xform.getXPos()>200 || xform.getXPos()<0 || xform.getYPos()>150 || xform.getYPos()<0 || this.mIsHit) //Out of the world bound
+    if (xform.getXPos()>300 || xform.getXPos()<-100 || xform.getYPos()>250 || xform.getYPos()<-100 || this.mIsHit) //Out of the world bound
     {
         this.mIsDead = true;
     }
